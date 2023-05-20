@@ -1,4 +1,4 @@
-import Button from "@/components/button/Button";
+import SignUpForm from "@/features/signup-form";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,64 +10,16 @@ export default function Page() {
         <h3 className="mt-4 text-xl font-bold">
           Crie sua conta e comece a usar
         </h3>
-        <form className="flex flex-col w-full mt-8 space-y-4">
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">
-              Nome
-            </label>
-            <input
-              className="px-4 py-2 mt-2 text-gray-700 bg-gray-100 rounded"
-              type="name"
-              placeholder="Seu nome"
-            />
-          </div>
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">
-              Email
-            </label>
-            <input
-              className="px-4 py-2 mt-2 text-gray-700 bg-gray-100 rounded"
-              type="email"
-              placeholder="Email"
-            />
-          </div>
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">
-              Senha
-            </label>
-            <input
-              className="px-4 py-2 mt-2 text-gray-700 bg-gray-100 rounded"
-              type="password"
-              placeholder="****"
-            />
-          </div>
-          <div className="flex flex-col w-full">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">
-              Confirmar Senha
-            </label>
-            <input
-              className="px-4 py-2 mt-2 text-gray-700 bg-gray-100 rounded"
-              type="password"
-              placeholder="****"
-            />
-          </div>
-          <div className="flex flex-col w-full">
-            <Button
-              className="px-4 py-2 mt-2 text-lg font-bold text-white bg-emerald-500 rounded-md hover:bg-emerald-600"
-              type="submit"
-            >
-              Criar conta
-            </Button>
-          </div>
-          <div className="flex justify-center w-full">
-            <Link
-              href="/login"
-              className="py-2 mt-2 text-sm font-bold text-gray-700 hover:underline"
-            >
-              Ja tem uma conta? Faça login
-            </Link>
-          </div>
-        </form>
+
+        <SignUpForm />
+        <div className="flex justify-center w-full">
+          <Link
+            href="/login"
+            className="py-2 mt-2 text-sm font-bold text-gray-700 hover:underline"
+          >
+            Ja tem uma conta? Faça login
+          </Link>
+        </div>
       </div>
     </div>
   );
