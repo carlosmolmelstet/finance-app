@@ -2,6 +2,7 @@
 
 import Button from "@/components/button/Button";
 import { api } from "@/utils/api";
+import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 
 interface ISignUpForm {
@@ -37,7 +38,10 @@ export default function SignUpForm() {
     });
 
     if (result.succsses) {
-      alert(result.data?.token);
+      if (result.data?.token) {
+        Cookies.set("finance_token", result.data?.token, { expires: 7 });
+        window.location.href = "/";
+      }
     } else {
       console.log(result.error?.statusCode);
     }

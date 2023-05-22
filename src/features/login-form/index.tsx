@@ -2,6 +2,8 @@
 
 import { api } from "@/utils/api";
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 interface ILoginForm {
   email: string;
@@ -35,7 +37,10 @@ export default function LoginForm() {
     });
 
     if (result.succsses) {
-      alert(result.data?.token);
+      if (result.data?.token) {
+        Cookies.set("finance_token", result.data?.token, { expires: 7 });
+        window.location.href = "/";
+      }
     } else {
       console.log(result.error?.statusCode);
     }
