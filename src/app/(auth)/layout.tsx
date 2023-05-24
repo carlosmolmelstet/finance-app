@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import jwt_decode from "jwt-decode";
+import { BreadcrumbItemProps } from "@/components/Breadcrumbs/BreadcrumbItem";
+import { Sidebar } from "@/components/sidebar";
+import { FunctionComponentElement } from "react";
 
 export const metadata = {
   title: "Finance App",
@@ -15,24 +15,19 @@ interface IToken {
   role: string;
 }
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const cookieStore = cookies();
-  const token = cookieStore.get("finance_token");
+type MyType = {
+  breadcrumbs: BreadcrumbItemProps[];
+} & Record<string, any>;
 
-  if (!token) {
-    return redirect("/login");
-  } else {
-    const user = jwt_decode(token.value) as IToken;
+export interface AuthLayoutProps {
+  children: FunctionComponentElement<any>;
+}
 
-    return (
-      <>
-        <div>{user.name}</div>
-        {children}
-      </>
-    );
-  }
+export default function AuthLayout(props: AuthLayoutProps) {
+  return (
+    <div className="flex">
+      <Sidebar />
+      {props.children}
+    </div>
+  );
 }
