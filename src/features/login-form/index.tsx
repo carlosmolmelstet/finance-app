@@ -39,7 +39,7 @@ export default function LoginForm() {
     if (result.succsses) {
       if (result.data?.token) {
         Cookies.set("finance_token", result.data?.token, { expires: 7 });
-        window.location.href = "/";
+        window.location.href = "/dashboard";
       }
     } else {
       console.log(result.error?.statusCode);

@@ -13,6 +13,16 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      animation: {
+        fade: 'fadeOut .2s ease-in-out',
+      },
+      // that is actual animation
+      keyframes: theme => ({
+        fadeOut: {
+          '0%': { transform: 'translateY(-100%)', opacity: .5 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+      }),
     },
   },
   plugins: [],

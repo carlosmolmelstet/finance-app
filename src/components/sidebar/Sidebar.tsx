@@ -4,7 +4,7 @@ import { NavItemProps } from "../navigation/NavItem";
 
 export function Sidebar() {
   return (
-    <div className="sidebar w-[250px] bg-gray-50 px-4 py-8">
+    <div className="sidebar hidden lg:block w-[250px] bg-gray-50 px-4 py-8">
       <Image
         src="/logo-larger.svg"
         width={150}
