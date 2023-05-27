@@ -12,7 +12,7 @@ export function BreadcrumbItem({
   title,
   isActived,
 }: BreadcrumbItemProps) {
-  const baseClass = "inline-flex items-center text-sm font-normal";
+  const baseClass = "inline-flex items-center text-sm font-normal truncate ";
   const isActivedClass = isActived ? "text-emerald-500" : "text-gray-600";
 
   return (

@@ -3,7 +3,6 @@
 import { Button } from "@/components/button";
 import { ILoginForm, SignIn } from "@/services/finance-api/auth/sign-in";
 import { login } from "@/utils/auth";
-import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 
 export default function LoginForm() {

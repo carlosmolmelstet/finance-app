@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 interface ApiProps {
   route: string;
   method: "POST" | "GET" | "PUT" | "DELETE";
@@ -19,10 +21,12 @@ export async function api<T>({
   method,
   data,
 }: ApiProps): Promise<ApiResult<T>> {
+  const token = Cookies.get("finance_token");
   const options = {
     method: method,
     headers: {
       "Content-Type": "application/json",
+      authorization: "Bearer " + token,
     },
     body: JSON.stringify(data),
   };

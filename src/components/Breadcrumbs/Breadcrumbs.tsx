@@ -6,7 +6,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <nav className="inline-flex items-center space-x-1 md:space-x-3">
+    <nav className="inline-flex items-center space-x-1 md:space-x-3 max-w-[calc(100%-60px)] overflow-hidden">
       {breadcrumbs?.map((item, index) => (
         <BreadcrumbItem
           key={item.href}

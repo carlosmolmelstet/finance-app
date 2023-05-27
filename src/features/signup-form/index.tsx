@@ -3,7 +3,6 @@
 import { Button } from "@/components/button";
 import { ISignUpRequest, SignUp } from "@/services/finance-api/auth/sign-up";
 import { login } from "@/utils/auth";
-import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 
 export default function SignUpForm() {
