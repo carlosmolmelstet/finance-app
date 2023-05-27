@@ -6,7 +6,7 @@ export interface ISignUpRequest {
   password: string;
 }
 
-interface ISignUpResponse {
+export interface ISignUpResponse {
   token: string;
   user: {
     id: string;

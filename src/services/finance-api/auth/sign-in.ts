@@ -5,7 +5,7 @@ export interface ILoginForm {
   password: string;
 }
 
-interface ILoginResponse {
+export interface ILoginResponse {
   token: string;
   user: {
     id: string;

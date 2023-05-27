@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/button";
 import { ISignUpRequest, SignUp } from "@/services/finance-api/auth/sign-up";
-import { api } from "@/utils/api";
+import { login } from "@/utils/auth";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 
@@ -11,15 +11,7 @@ export default function SignUpForm() {
 
   const onSubmit = async (data: ISignUpRequest) => {
     const result = await SignUp(data);
-
-    if (result.succsses) {
-      if (result.data?.token) {
-        Cookies.set("finance_token", result.data?.token, { expires: 7 });
-        window.location.href = "/dashboard";
-      }
-    } else {
-      console.log(result.error?.statusCode);
-    }
+    login(result);
   };
 
   return (
