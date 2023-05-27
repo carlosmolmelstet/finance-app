@@ -1,41 +1,16 @@
 "use client";
 
-import Button from "@/components/button/Button";
+import { Button } from "@/components/button";
+import { ISignUpRequest, SignUp } from "@/services/finance-api/auth/sign-up";
 import { api } from "@/utils/api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 
-interface ISignUpForm {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface ISignUpResponse {
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    avatar?: string;
-    role: string;
-    createdAt: Date;
-  };
-}
-
 export default function SignUpForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ISignUpForm>();
+  const { register, handleSubmit } = useForm<ISignUpRequest>();
 
-  const onSubmit = async (data: ISignUpForm) => {
-    const result = await api<ISignUpResponse>({
-      route: "auth/sign-up",
-      method: "POST",
-      data: data,
-    });
+  const onSubmit = async (data: ISignUpRequest) => {
+    const result = await SignUp(data);
 
     if (result.succsses) {
       if (result.data?.token) {

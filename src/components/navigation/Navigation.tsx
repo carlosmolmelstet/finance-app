@@ -1,6 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { NavItem, NavItemProps } from "./NavItem";
+import { NavItem } from "./NavItem";
 import { useNavigation } from "./useNavigation";
 
 export function Navigation() {

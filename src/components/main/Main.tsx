@@ -1,9 +1,9 @@
-import { BreadcrumbItemProps } from "@/components/Breadcrumbs/BreadcrumbItem";
 import jwt_decode from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import { Header } from "../header";
+import { BreadcrumbItemProps } from "../breadcrumbs/BreadcrumbItem";
 
 interface MainProps {
   children: ReactNode;

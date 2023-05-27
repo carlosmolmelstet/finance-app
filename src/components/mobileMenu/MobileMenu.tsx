@@ -1,9 +1,7 @@
-import { MdOutlineClose, MdOutlineSegment } from "react-icons/md";
-import { Breadcrumbs } from "../Breadcrumbs";
-import { BreadcrumbItemProps } from "../Breadcrumbs/BreadcrumbItem";
-import { Navigation } from "../navigation";
 import Image from "next/image";
+import { MdOutlineClose } from "react-icons/md";
 import { Avatar } from "../avatar";
+import { Navigation } from "../navigation";
 
 interface MobileMenuProps {
   isOpen: boolean;

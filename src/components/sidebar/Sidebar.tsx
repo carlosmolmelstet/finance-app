@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Navigation } from "../navigation";
-import { NavItemProps } from "../navigation/NavItem";
 
 export function Sidebar() {
   return (

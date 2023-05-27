@@ -1,5 +1,4 @@
 import { BreadcrumbItem, BreadcrumbItemProps } from "./BreadcrumbItem";
-import { useBreadcrumbs } from "./useBreadcrumbs";
 
 interface BreadcrumbsProps {
   breadcrumbs: BreadcrumbItemProps[];

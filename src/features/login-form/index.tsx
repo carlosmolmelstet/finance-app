@@ -1,40 +1,16 @@
 "use client";
 
+import { Button } from "@/components/button";
+import { ILoginForm, SignIn } from "@/services/finance-api/auth/sign-in";
 import { api } from "@/utils/api";
-import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
-import { redirect } from "next/navigation";
-
-interface ILoginForm {
-  email: string;
-  password: string;
-}
-
-interface ILoginResponse {
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    avatar?: string;
-    role: string;
-    createdAt: Date;
-  };
-}
+import { useForm } from "react-hook-form";
 
 export default function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ILoginForm>();
+  const { register, handleSubmit } = useForm<ILoginForm>();
 
   const onSubmit = async (data: ILoginForm) => {
-    const result = await api<ILoginResponse>({
-      route: "auth/sign-in",
-      method: "POST",
-      data: data,
-    });
+    const result = await SignIn(data);
 
     if (result.succsses) {
       if (result.data?.token) {
@@ -74,12 +50,12 @@ export default function LoginForm() {
         />
       </div>
       <div className="flex flex-col w-full">
-        <button
+        <Button
           className="px-4 py-2 mt-2 text-lg font-bold text-white bg-emerald-500 rounded-md hover:bg-emerald-600"
           type="submit"
         >
           Entrar
-        </button>
+        </Button>
       </div>
     </form>
   );

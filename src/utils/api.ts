@@ -8,7 +8,7 @@ type FetchError = {
   message: string;
   statusCode: number;
 };
-interface ApiResult<T> {
+export interface ApiResult<T> {
   succsses: boolean;
   data?: T;
   error?: FetchError;
