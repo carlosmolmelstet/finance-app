@@ -27,7 +27,8 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, toggle }: MobileMenuProps) {
-  const { account } = useAuth();
+  const { account, singOut } = useAuth();
+
   const user = account.user;
   return (
     <Drawer onClose={toggle} isOpen={isOpen} placement="bottom">
@@ -62,7 +63,7 @@ export function MobileMenu({ isOpen, toggle }: MobileMenuProps) {
               <MenuItem icon={<MdPersonOutline />}> Perfil</MenuItem>
               <MenuItem icon={<MdOutlineSettings />}>Configurações</MenuItem>
               <MenuDivider />
-              <MenuItem icon={<MdLogout />} color="red.500">
+              <MenuItem icon={<MdLogout />} color="red.500" onClick={singOut}>
                 Sair
               </MenuItem>
             </MenuList>

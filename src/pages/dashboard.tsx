@@ -1,7 +1,10 @@
 import {
   Box,
+  Button,
   Card,
   CardBody,
+  CardHeader,
+  Flex,
   Grid,
   GridItem,
   Heading,
@@ -15,6 +18,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import AuthenticatedLayout from "./_layout/Authenticated/Authenticated.layout";
+import { StarIcon } from "@chakra-ui/icons";
+import {
+  CreditIcon,
+  WalletIcon,
+  CartIcon,
+  RocketIcon,
+  StatsIcon,
+} from "@/components/Icons/Icons";
+import IconBox from "@/components/Icons/IconBox";
+import { CardStat } from "@/components/CardStat";
 
 function MockCard() {
   return (
@@ -51,23 +64,6 @@ function MockCard() {
   );
 }
 
-function MockStat() {
-  return (
-    <Card borderRadius={16}>
-      <CardBody>
-        <Stat>
-          <StatLabel>Sent</StatLabel>
-          <StatNumber>R$ 345.670,00</StatNumber>
-          <StatHelpText>
-            <StatArrow type="increase" />
-            23.36%
-          </StatHelpText>
-        </Stat>{" "}
-      </CardBody>
-    </Card>
-  );
-}
-
 export default function Page() {
   return (
     <AuthenticatedLayout>
@@ -81,19 +77,39 @@ export default function Page() {
         columnGap={4}
         w="100%"
       >
-        <GridItem colSpan={{ base: 4, lg: 3 }}>
-          <MockStat />
+        <GridItem colSpan={{ md: 4, lg: 3 }}>
+          <CardStat
+            title="Receita"
+            value={5100}
+            percentage={30.5}
+            icon={<WalletIcon h="24px" w="24px" />}
+          />
         </GridItem>
-        <GridItem colSpan={{ base: 4, lg: 3 }}>
-          <MockStat />
+        <GridItem colSpan={{ md: 4, lg: 3 }}>
+          <CardStat
+            title="Despesas"
+            value={3150}
+            percentage={-14.47}
+            icon={<CartIcon h="24px" w="24px" />}
+          />
         </GridItem>
-        <GridItem colSpan={{ base: 4, lg: 3 }}>
-          <MockStat />
+        <GridItem colSpan={{ md: 4, lg: 3 }}>
+          <CardStat
+            title="Saldo do Mês"
+            value={1450}
+            icon={<RocketIcon h="24px" w="24px" />}
+          />
         </GridItem>
-        <GridItem colSpan={{ base: 4, lg: 3 }}>
-          <MockStat />
+        <GridItem colSpan={{ md: 4, lg: 3 }}>
+          <CardStat
+            title="Total Investido"
+            value={24350}
+            percentage={15}
+            icon={<StatsIcon h="24px" w="24px" />}
+          />
         </GridItem>
-        <GridItem colSpan={{ base: 4, md: 8 }}>
+
+        <GridItem colSpan={{ base: 4, md: 6 }}>
           <MockCard />
         </GridItem>
         <GridItem colSpan={4}>

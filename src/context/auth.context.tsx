@@ -59,6 +59,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }
 
   async function singOut() {
+    alert("sair");
     router.push("/auth/login");
     setAccount({} as Account);
     destroyCookie(null, COOKIE.TOKEN);

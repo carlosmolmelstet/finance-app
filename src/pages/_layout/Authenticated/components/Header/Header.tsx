@@ -28,7 +28,7 @@ interface HeaderProps {
 }
 
 export function Header({ breadcrumbs }: HeaderProps) {
-  const { account } = useAuth();
+  const { account, singOut } = useAuth();
   const user = account.user;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -88,6 +88,7 @@ export function Header({ breadcrumbs }: HeaderProps) {
             }}
             icon={<MdLogout />}
             color="red.500"
+            onClick={singOut}
           >
             Sair
           </MenuItem>

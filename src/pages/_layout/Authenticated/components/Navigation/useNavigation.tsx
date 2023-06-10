@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  MdAddShoppingCart,
-  MdHistory,
-  MdOutlineDashboard,
-} from "react-icons/md";
 
 import { useRouter } from "next/router";
 
+import { CartIcon, StatsIcon, WalletIcon } from "@/components/Icons/Icons";
 import { NavItemProps } from "./NavItem";
-import { StatsIcon, CreditIcon, WalletIcon } from "@/components/Icons/Icons";
 
 interface NavigationData {
   pathname: string;
@@ -20,8 +15,8 @@ export function useNavigation(): NavigationData {
 
   const [navigationItems, setNavigationItems] = useState<NavItemProps[]>([
     { title: "Dashboard", href: "/dashboard", icon: <StatsIcon /> },
-    { title: "Despesas", href: "/charge", icon: <CreditIcon /> },
     { title: "Receitas", href: "/history", icon: <WalletIcon /> },
+    { title: "Despesas", href: "/charge", icon: <CartIcon /> },
   ]);
 
   useEffect(() => {
