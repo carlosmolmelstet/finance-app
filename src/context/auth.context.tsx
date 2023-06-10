@@ -3,12 +3,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { COOKIE } from "@/utils/cookie.helper";
+import { financeAPI } from "@/services/finance-api";
 
 interface User {
   id: string;
   name: string;
   email: string;
-  avatar_url: string;
+  avatar_url?: string;
 }
 
 interface Account {
@@ -37,6 +38,10 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const cookies = parseCookies();
     if (cookies[COOKIE.TOKEN] && cookies[COOKIE.USER]) {
+      financeAPI.defaults.headers.Authorization = `Bearer ${JSON.parse(
+        cookies[COOKIE.TOKEN]
+      )}`;
+
       setAccount({
         token: JSON.parse(cookies[COOKIE.TOKEN]),
         user: JSON.parse(cookies[COOKIE.USER]),

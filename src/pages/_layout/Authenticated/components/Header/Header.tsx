@@ -41,11 +41,11 @@ export function Header({ breadcrumbs }: HeaderProps) {
       w="100%"
       justify="space-between"
       py={4}
-      h={{ base: 24, lg: 28 }}
-      px={{ base: 4, lg: 8 }}
+      h={{ base: 24, xl: 28 }}
+      px={{ base: 4, xl: 8 }}
     >
       <Flex align="center">
-        <Box display={{ base: "flex", lg: "none" }} mr={2}>
+        <Box display={{ base: "flex", xl: "none" }} mr={2}>
           <Image src="/logo.svg" width={32} height={32} alt="Finance Logo" />
         </Box>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
@@ -57,7 +57,7 @@ export function Header({ breadcrumbs }: HeaderProps) {
             name={user.name}
             h={10}
             w={10}
-            display={{ base: "none", lg: "flex" }}
+            display={{ base: "none", xl: "flex" }}
           />
         </MenuButton>
         <MenuList bg="gray.800">
@@ -99,13 +99,14 @@ export function Header({ breadcrumbs }: HeaderProps) {
         align="center"
         justify="center"
         onClick={toggle}
-        display={{ base: "flex", lg: "none" }}
+        display={{ base: "flex", xl: "none" }}
         fontSize="3xl"
         color="teal.500"
         p={0}
         _hover={{
           color: "teal.300",
         }}
+        cursor={"pointer"}
       >
         <MdOutlineSegment />
       </Flex>

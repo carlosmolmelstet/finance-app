@@ -28,38 +28,12 @@ import {
 } from "@/components/Icons/Icons";
 import IconBox from "@/components/Icons/IconBox";
 import { CardStat } from "@/components/CardStat";
+import { financeAPI } from "@/services/finance-api";
 
-function MockCard() {
+function MockCard({ children }: { children: React.ReactNode }) {
   return (
-    <Card borderRadius={16}>
-      <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Summary
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              View a summary of all your clients over the last month.
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Overview
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              Check out the overview of your clients.
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Analysis
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              See a detailed analysis of all your business clients.
-            </Text>
-          </Box>
-        </Stack>
-      </CardBody>
+    <Card borderRadius={16} h="400px">
+      <CardBody>{children}</CardBody>
     </Card>
   );
 }
@@ -67,17 +41,8 @@ function MockCard() {
 export default function Page() {
   return (
     <AuthenticatedLayout>
-      <Grid
-        templateColumns={{
-          base: "repeat(4, 1fr)",
-          md: "repeat(8, 1fr)",
-          lg: "repeat(12, 1fr)",
-        }}
-        rowGap={8}
-        columnGap={4}
-        w="100%"
-      >
-        <GridItem colSpan={{ md: 4, lg: 3 }}>
+      <Grid templateColumns="repeat(12, 1fr)" gap={6} w="100%">
+        <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Receita"
             value={5100}
@@ -85,7 +50,7 @@ export default function Page() {
             icon={<WalletIcon h="24px" w="24px" />}
           />
         </GridItem>
-        <GridItem colSpan={{ md: 4, lg: 3 }}>
+        <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Despesas"
             value={3150}
@@ -93,39 +58,24 @@ export default function Page() {
             icon={<CartIcon h="24px" w="24px" />}
           />
         </GridItem>
-        <GridItem colSpan={{ md: 4, lg: 3 }}>
+        <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Saldo do Mês"
             value={1450}
             icon={<RocketIcon h="24px" w="24px" />}
           />
         </GridItem>
-        <GridItem colSpan={{ md: 4, lg: 3 }}>
-          <CardStat
-            title="Total Investido"
-            value={24350}
-            percentage={15}
-            icon={<StatsIcon h="24px" w="24px" />}
-          />
+        <GridItem colSpan={{ base: 12, lg: 5 }}>
+          <MockCard>Grafico por despesas</MockCard>
         </GridItem>
-
-        <GridItem colSpan={{ base: 4, md: 6 }}>
-          <MockCard />
+        <GridItem colSpan={{ base: 12, lg: 7 }}>
+          <MockCard>GRafico por mes</MockCard>
         </GridItem>
-        <GridItem colSpan={4}>
-          <MockCard />
+        <GridItem colSpan={{ base: 12, lg: 8 }}>
+          <MockCard>Ultimos Lançamentos</MockCard>
         </GridItem>
-        <GridItem colSpan={4}>
-          <MockCard />
-        </GridItem>
-        <GridItem colSpan={{ base: 4, md: 8 }}>
-          <MockCard />
-        </GridItem>
-        <GridItem colSpan={{ base: 4, md: 8 }}>
-          <MockCard />
-        </GridItem>
-        <GridItem colSpan={4}>
-          <MockCard />
+        <GridItem colSpan={{ base: 12, lg: 4 }}>
+          <MockCard>Novo Lan;camento</MockCard>
         </GridItem>
       </Grid>
     </AuthenticatedLayout>

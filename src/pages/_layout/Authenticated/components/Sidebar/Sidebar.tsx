@@ -11,7 +11,7 @@ export function Sidebar() {
       w="300px"
       px={6}
       py={8}
-      display={{ base: "none", lg: "flex" }}
+      display={{ base: "none", xl: "flex" }}
       align={"center"}
     >
       <Image

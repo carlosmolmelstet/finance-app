@@ -32,23 +32,21 @@ export function CardStat({ title, icon, value, percentage }: CardStatProps) {
           <StatLabel color="gray.500" fontWeight={"bold"}>
             {title}
           </StatLabel>
-          <Flex align="flex-end">
-            <StatNumber fontSize={24} color="gray.200" mr={2}>
-              {currency.format(value)}
-            </StatNumber>
-            {percentage && (
-              <Tooltip
-                label="Comparação com o mês anterior"
-                bg="gray.900"
-                color="gray.100"
-              >
-                <StatHelpText w="fit-content">
-                  <StatArrow type={percentage > 0 ? "increase" : "decrease"} />
-                  {percentage}%
-                </StatHelpText>
-              </Tooltip>
-            )}
-          </Flex>
+          <StatNumber fontSize={24} color="gray.200" mr={2}>
+            {currency.format(value)}
+          </StatNumber>
+          {percentage && (
+            <Tooltip
+              label="Comparação com o mês anterior"
+              bg="gray.900"
+              color="gray.100"
+            >
+              <StatHelpText w="fit-content">
+                <StatArrow type={percentage > 0 ? "increase" : "decrease"} />
+                {percentage}%
+              </StatHelpText>
+            </Tooltip>
+          )}
         </Stat>
         <IconBox bg={"teal.300"} color="white" h="40px" w="40px" me="12px">
           {icon}
