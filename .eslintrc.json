@@ -1,6 +1,8 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "react-hooks/exhaustive-deps": "off" // <--- THIS IS THE NEW RULE
+    "react-hooks/exhaustive-deps": "off", // <--- THIS IS THE NEW RULE
+    "react/display-name": "off"
+
   }
 }

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import IconBox from "../Icons/IconBox";
 import { WalletIcon } from "../Icons/Icons";
-import { currency } from "@/utils/currency.helper";
+import { currencyFormat } from "@/utils/currency.helper";
 
 interface CardStatProps {
   title: string;
@@ -33,7 +33,7 @@ export function CardStat({ title, icon, value, percentage }: CardStatProps) {
             {title}
           </StatLabel>
           <StatNumber fontSize={24} color="gray.200" mr={2}>
-            {currency.format(value)}
+            {currencyFormat.format(value)}
           </StatNumber>
           {percentage && (
             <Tooltip

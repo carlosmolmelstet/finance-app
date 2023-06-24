@@ -8,6 +8,12 @@ import {
   Grid,
   GridItem,
   Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Stack,
   StackDivider,
   Stat,
@@ -16,6 +22,7 @@ import {
   StatLabel,
   StatNumber,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import AuthenticatedLayout from "./_layout/Authenticated/Authenticated.layout";
 import { StarIcon } from "@chakra-ui/icons";
@@ -29,16 +36,20 @@ import {
 import IconBox from "@/components/Icons/IconBox";
 import { CardStat } from "@/components/CardStat";
 import { financeAPI } from "@/services/finance-api";
+import ExpenseForm from "@/features/expense-form";
+import ExpensesList from "@/features/expenses-list";
 
 function MockCard({ children }: { children: React.ReactNode }) {
   return (
-    <Card borderRadius={16} h="400px">
+    <Card borderRadius={16} minH="400px">
       <CardBody>{children}</CardBody>
     </Card>
   );
 }
 
 export default function Page() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <AuthenticatedLayout>
       <Grid templateColumns="repeat(12, 1fr)" gap={6} w="100%">
@@ -72,10 +83,17 @@ export default function Page() {
           <MockCard>GRafico por mes</MockCard>
         </GridItem>
         <GridItem colSpan={{ base: 12, lg: 8 }}>
-          <MockCard>Ultimos Lançamentos</MockCard>
+          <ExpensesList />
         </GridItem>
         <GridItem colSpan={{ base: 12, lg: 4 }}>
-          <MockCard>Novo Lan;camento</MockCard>
+          <Card borderRadius={16} h="100%">
+            <CardBody>
+              <Heading size="md" mb={8}>
+                Novo Lançamento
+              </Heading>
+              <ExpenseForm />
+            </CardBody>
+          </Card>
         </GridItem>
       </Grid>
     </AuthenticatedLayout>
