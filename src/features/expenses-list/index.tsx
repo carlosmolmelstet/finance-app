@@ -83,7 +83,7 @@ export default function ExpensesList() {
               <Thead>
                 <Tr>
                   <Th>Categoria</Th>
-                  <Th isNumeric>Valor</Th>
+                  <Th>Valor</Th>
                   <Th>Data</Th>
                   <Th>Criado em</Th>
                   <Th w="100px">Ações</Th>
@@ -97,13 +97,14 @@ export default function ExpensesList() {
                         (categoty) => categoty.id === expense.categoryId
                       )?.name || "---"}
                     </Td>
-                    <Td isNumeric>{currencyFormat.format(expense.amount)}</Td>
+                    <Td>{currencyFormat.format(expense.amount)}</Td>
                     <Td>{moment(expense.date).format("DD/MM/YYYY")}</Td>
                     <Td>
                       {moment(expense.createdAt).format("DD/MM/YYYY HH:mm")}
                     </Td>
                     <Td textAlign="center">
                       <IconButton
+                        variant="outline"
                         aria-label="Editar despesa"
                         icon={<MdModeEditOutline />}
                         onClick={() => handleEditExpense(expense.id)}

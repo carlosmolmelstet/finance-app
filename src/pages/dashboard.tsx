@@ -38,6 +38,8 @@ import { CardStat } from "@/components/CardStat";
 import { financeAPI } from "@/services/finance-api";
 import ExpenseForm from "@/features/expense-form";
 import ExpensesList from "@/features/expenses-list";
+import { LineChart } from "@/components/Charts/LineChart";
+import { ChartStatistics } from "@/components/Charts/ChartStatistics";
 
 function MockCard({ children }: { children: React.ReactNode }) {
   return (
@@ -56,7 +58,7 @@ export default function Page() {
         <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Receita"
-            value={5100}
+            value={7200}
             percentage={30.5}
             icon={<WalletIcon h="24px" w="24px" />}
           />
@@ -77,10 +79,81 @@ export default function Page() {
           />
         </GridItem>
         <GridItem colSpan={{ base: 12, lg: 5 }}>
-          <MockCard>Grafico por despesas</MockCard>
+          <Card minH="400px" h="100%">
+            <CardBody>
+              <Heading size="md" mb={8}>
+                Despesas por categoria
+              </Heading>
+              <Grid
+                templateColumns={{
+                  base: "repeat(1, 1fr)",
+                  md: "repeat(2, 1fr)",
+                }}
+                gap={8}
+              >
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+                <GridItem>
+                  <ChartStatistics
+                    title={"Users"}
+                    amount={32984}
+                    percentage={20}
+                    icon={<WalletIcon h={"15px"} w={"15px"} />}
+                  />
+                </GridItem>
+              </Grid>
+            </CardBody>
+          </Card>
         </GridItem>
         <GridItem colSpan={{ base: 12, lg: 7 }}>
-          <MockCard>GRafico por mes</MockCard>
+          <Card minH="400px" h="100%">
+            <CardBody>
+              <Heading size="md" mb={8}>
+                Despesas e Receitas
+              </Heading>
+              <Box w="100%" h="325px">
+                <LineChart />
+              </Box>
+            </CardBody>
+          </Card>
         </GridItem>
         <GridItem colSpan={{ base: 12, lg: 8 }}>
           <ExpensesList />
