@@ -1,56 +1,30 @@
+import { CardStat } from "@/components/CardStat";
+import { ChartStatistics } from "@/components/Charts/ChartStatistics";
+import { LineChart } from "@/components/Charts/LineChart";
+import DatePicker from "@/components/DatePicker";
+import { CartIcon, RocketIcon, WalletIcon } from "@/components/Icons/Icons";
+import ExpenseForm from "@/features/expense-form";
+import ExpensesList from "@/features/expenses-list";
 import {
   Box,
-  Button,
   Card,
   CardBody,
-  CardHeader,
   Flex,
   Grid,
   GridItem,
   Heading,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Stack,
-  StackDivider,
-  Stat,
-  StatArrow,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-  Text,
-  useDisclosure,
 } from "@chakra-ui/react";
+import pt from "date-fns/locale/pt";
+import { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import AuthenticatedLayout from "./_layout/Authenticated/Authenticated.layout";
-import { StarIcon } from "@chakra-ui/icons";
-import {
-  CreditIcon,
-  WalletIcon,
-  CartIcon,
-  RocketIcon,
-  StatsIcon,
-} from "@/components/Icons/Icons";
-import IconBox from "@/components/Icons/IconBox";
-import { CardStat } from "@/components/CardStat";
-import { financeAPI } from "@/services/finance-api";
-import ExpenseForm from "@/features/expense-form";
-import ExpensesList from "@/features/expenses-list";
-import { LineChart } from "@/components/Charts/LineChart";
-import { ChartStatistics } from "@/components/Charts/ChartStatistics";
-
-function MockCard({ children }: { children: React.ReactNode }) {
-  return (
-    <Card borderRadius={16} minH="400px">
-      <CardBody>{children}</CardBody>
-    </Card>
-  );
-}
+import moment from "moment";
+registerLocale("pt", pt);
 
 export default function Page() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  function callback(dates: { startDate: Date; endDate: Date }) {
+    console.log("home", dates);
+  }
 
   return (
     <AuthenticatedLayout>
@@ -146,9 +120,16 @@ export default function Page() {
         <GridItem colSpan={{ base: 12, lg: 7 }}>
           <Card minH="400px" h="100%">
             <CardBody>
-              <Heading size="md" mb={8}>
-                Despesas e Receitas
-              </Heading>
+              <Flex justify="space-between" align="center" mb={8}>
+                <Heading size="md">Despesas e Receitas</Heading>
+                <DatePicker
+                  initialDates={{
+                    startDate: moment().toDate(),
+                    endDate: moment().add(1, "month").toDate(),
+                  }}
+                  callback={callback}
+                />
+              </Flex>
               <Box w="100%" h="325px">
                 <LineChart />
               </Box>

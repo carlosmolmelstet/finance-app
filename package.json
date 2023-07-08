@@ -36,6 +36,7 @@
     "react-apexcharts": "^1.4.0",
     "react-cookie": "^4.1.1",
     "react-cookies": "^0.1.1",
+    "react-datepicker": "^4.15.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
@@ -44,6 +45,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.3"
+    "@types/js-cookie": "^3.0.3",
+    "@types/react-datepicker": "^4.11.2"
   }
 }
