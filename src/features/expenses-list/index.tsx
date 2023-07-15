@@ -55,7 +55,7 @@ export default function ExpensesList() {
           return a.createdAt.valueOf() + b.createdAt.valueOf();
         })
         .reverse();
-      setExpenses(expenses.slice(0, 5));
+      setExpenses(expenses);
     }
     fetchExpenseCategories();
     loadExpenses();

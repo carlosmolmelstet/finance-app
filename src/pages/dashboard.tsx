@@ -19,36 +19,118 @@ import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AuthenticatedLayout from "./_layout/Authenticated/Authenticated.layout";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import {
+  ExpenseDTO,
+  getExpenseByPeriod,
+} from "@/services/expenses/get-by-period";
+import {
+  ExpenseCategoryDTO,
+  getAllExpenseCategories,
+} from "@/services/expense_categories/get-all";
 registerLocale("pt", pt);
 
+interface RevenuesDTO {
+  amount: number;
+}
+
 export default function Page() {
-  function callback(dates: { startDate: Date; endDate: Date }) {
-    console.log("home", dates);
+  const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
+    startDate: moment().subtract(1, "month").toDate(),
+    endDate: moment().toDate(),
+  });
+  const [expenses, setExpenses] = useState<ExpenseDTO[]>([]);
+  const [expensesCategories, setExpensesCategories] = useState<
+    ExpenseCategoryDTO[]
+  >([]);
+
+  const expensesAmout = expenses.reduce((acc, expense) => {
+    return acc + expense.amount;
+  }, 0);
+
+  const [revenues, setRevenues] = useState<RevenuesDTO[]>([
+    {
+      amount: 6500,
+    },
+  ]);
+
+  const revenuesAmout = revenues.reduce((acc, revenue) => {
+    return acc + revenue.amount;
+  }, 0);
+
+  const expensesByCategory = Object.entries(
+    expenses.reduce((acc, expense) => {
+      const category = expense.categoryId;
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+      acc[category] += expense.amount;
+      return acc;
+    }, {} as { [key: string]: number })
+  )
+    .sort(([, a], [, b]) => a + b)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {} as { [key: string]: number });
+
+  function percentage(partialValue: number, totalValue: number) {
+    return (100 * partialValue) / totalValue;
   }
+
+  async function fetchExpenseByPeriod(dates: {
+    startDate: Date;
+    endDate: Date;
+  }) {
+    if (!dates.startDate || !dates.endDate) return;
+
+    const response = await getExpenseByPeriod(dates.startDate, dates.endDate);
+    setExpenses(response);
+  }
+
+  async function fetchExpenseCategories() {
+    const response = await getAllExpenseCategories();
+    setExpensesCategories(response);
+  }
+
+  useEffect(() => {
+    fetchExpenseCategories();
+    fetchExpenseByPeriod({
+      startDate: dates.startDate,
+      endDate: dates.endDate,
+    });
+  }, []);
 
   return (
     <AuthenticatedLayout>
       <Grid templateColumns="repeat(12, 1fr)" gap={6} w="100%">
+        <GridItem colSpan={12}>
+          <Box float="right">
+            <DatePicker
+              initialDates={{
+                startDate: dates.startDate,
+                endDate: dates.endDate,
+              }}
+              callback={fetchExpenseByPeriod}
+            />
+          </Box>
+        </GridItem>
+
         <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Receita"
-            value={7200}
-            percentage={30.5}
+            value={revenuesAmout}
             icon={<WalletIcon h="24px" w="24px" />}
           />
         </GridItem>
         <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
             title="Despesas"
-            value={3150}
-            percentage={-14.47}
+            value={expensesAmout}
             icon={<CartIcon h="24px" w="24px" />}
           />
         </GridItem>
         <GridItem colSpan={{ base: 12, md: 4 }}>
           <CardStat
-            title="Saldo do Mês"
-            value={1450}
+            title="Saldo"
+            value={revenuesAmout - expensesAmout}
             icon={<RocketIcon h="24px" w="24px" />}
           />
         </GridItem>
@@ -65,54 +147,27 @@ export default function Page() {
                 }}
                 gap={8}
               >
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
-                <GridItem>
-                  <ChartStatistics
-                    title={"Users"}
-                    amount={32984}
-                    percentage={20}
-                    icon={<WalletIcon h={"15px"} w={"15px"} />}
-                  />
-                </GridItem>
+                {Object.keys(expensesByCategory)
+                  .slice(0, 6)
+                  .map((key) => {
+                    const category = expensesCategories.find(
+                      (category) => category.id === key
+                    );
+                    if (!category) return null;
+                    return (
+                      <GridItem key={key}>
+                        <ChartStatistics
+                          title={category.name}
+                          amount={expensesByCategory[key]}
+                          percentage={percentage(
+                            expensesByCategory[key],
+                            expensesAmout
+                          )}
+                          icon={<WalletIcon h={"15px"} w={"15px"} />}
+                        />
+                      </GridItem>
+                    );
+                  })}
               </Grid>
             </CardBody>
           </Card>
@@ -122,13 +177,6 @@ export default function Page() {
             <CardBody>
               <Flex justify="space-between" align="center" mb={8}>
                 <Heading size="md">Despesas e Receitas</Heading>
-                <DatePicker
-                  initialDates={{
-                    startDate: moment().toDate(),
-                    endDate: moment().add(1, "month").toDate(),
-                  }}
-                  callback={callback}
-                />
               </Flex>
               <Box w="100%" h="325px">
                 <LineChart />

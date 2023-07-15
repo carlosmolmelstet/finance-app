@@ -17,10 +17,9 @@ interface CardStatProps {
   title: string;
   icon: React.ReactNode;
   value: number;
-  percentage?: number;
 }
 
-export function CardStat({ title, icon, value, percentage }: CardStatProps) {
+export function CardStat({ title, icon, value }: CardStatProps) {
   return (
     <Card borderRadius={16} h="100%">
       <CardBody
@@ -28,25 +27,13 @@ export function CardStat({ title, icon, value, percentage }: CardStatProps) {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Stat>
+        <Stat py={2}>
           <StatLabel color="gray.500" fontWeight={"bold"}>
             {title}
           </StatLabel>
           <StatNumber fontSize={24} color="gray.200" mr={2}>
             {currencyFormat.format(value)}
           </StatNumber>
-          {percentage && (
-            <Tooltip
-              label="Comparação com o mês anterior"
-              bg="gray.900"
-              color="gray.100"
-            >
-              <StatHelpText w="fit-content">
-                <StatArrow type={percentage > 0 ? "increase" : "decrease"} />
-                {percentage}%
-              </StatHelpText>
-            </Tooltip>
-          )}
         </Stat>
         <IconBox bg={"teal.300"} color="white" h="40px" w="40px" me="12px">
           {icon}
