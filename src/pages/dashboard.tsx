@@ -28,6 +28,7 @@ import {
   ExpenseCategoryDTO,
   getAllExpenseCategories,
 } from "@/services/expense_categories/get-all";
+import ExpensesChart from "@/features/expenses-chart";
 registerLocale("pt", pt);
 
 interface RevenuesDTO {
@@ -83,6 +84,7 @@ export default function Page() {
 
     const response = await getExpenseByPeriod(dates.startDate, dates.endDate);
     setExpenses(response);
+    setDates(dates);
   }
 
   async function fetchExpenseCategories() {
@@ -179,7 +181,7 @@ export default function Page() {
                 <Heading size="md">Despesas e Receitas</Heading>
               </Flex>
               <Box w="100%" h="325px">
-                <LineChart />
+                <ExpensesChart expenses={expenses} dates={dates} />
               </Box>
             </CardBody>
           </Card>

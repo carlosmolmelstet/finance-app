@@ -8,7 +8,12 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-export function LineChart() {
+interface LineChartProps {
+  series: ApexOptions["series"];
+  categories: string[];
+}
+
+export function LineChart({ series, categories }: LineChartProps) {
   const options: ApexOptions = {
     chart: {
       toolbar: {
@@ -48,9 +53,9 @@ export function LineChart() {
         opacityTo: 0,
         stops: [],
       },
-      colors: ["#4FD1C5", "#FC8181"],
+      colors: ["#FC8181", "#4FD1C5"],
     },
-    colors: ["#4FD1C5", "#FC8181"],
+    colors: ["#FC8181", "#4FD1C5"],
     yaxis: {
       labels: {
         style: {
@@ -63,7 +68,7 @@ export function LineChart() {
       },
     },
     xaxis: {
-      categories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+      categories: categories,
       labels: {
         style: {
           colors: "#c8cfca",
@@ -73,22 +78,6 @@ export function LineChart() {
       },
     },
   };
-
-  function getRandomArbitrary() {
-    return Math.random() * (5000 - 1000) + 1000;
-  }
-
-  const series: ApexOptions["series"] = [
-    {
-      name: "Receitas",
-
-      data: Array.from({ length: 6 }, () => getRandomArbitrary()),
-    },
-    {
-      name: "Despesas",
-      data: Array.from({ length: 6 }, () => getRandomArbitrary()),
-    },
-  ];
 
   return (
     <ReactApexChart

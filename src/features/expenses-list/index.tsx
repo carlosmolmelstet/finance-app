@@ -90,7 +90,7 @@ export default function ExpensesList() {
                 </Tr>
               </Thead>
               <Tbody>
-                {expenses.map((expense) => (
+                {expenses.slice(0, 5).map((expense) => (
                   <Tr key={expense.id}>
                     <Td>
                       {expenseCategories.find(
