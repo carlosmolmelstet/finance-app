@@ -28,12 +28,12 @@ import {
   ExpenseCategoryDTO,
   getAllExpenseCategories,
 } from "@/services/expense_categories/get-all";
-import ExpensesChart from "@/features/expenses-chart";
+import ExpensesVsRevenuesChart from "@/features/expenses-vs-revenues-chart";
+import {
+  RevenueDTO,
+  getRevenueByPeriod,
+} from "@/services/revenues/get-by-period";
 registerLocale("pt", pt);
-
-interface RevenuesDTO {
-  amount: number;
-}
 
 export default function Page() {
   const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
@@ -49,11 +49,7 @@ export default function Page() {
     return acc + expense.amount;
   }, 0);
 
-  const [revenues, setRevenues] = useState<RevenuesDTO[]>([
-    {
-      amount: 6500,
-    },
-  ]);
+  const [revenues, setRevenues] = useState<RevenueDTO[]>([]);
 
   const revenuesAmout = revenues.reduce((acc, revenue) => {
     return acc + revenue.amount;
@@ -76,14 +72,24 @@ export default function Page() {
     return (100 * partialValue) / totalValue;
   }
 
-  async function fetchExpenseByPeriod(dates: {
+  async function fetchExpenseAndRevenueByPeriod(dates: {
     startDate: Date;
     endDate: Date;
   }) {
     if (!dates.startDate || !dates.endDate) return;
 
-    const response = await getExpenseByPeriod(dates.startDate, dates.endDate);
-    setExpenses(response);
+    const expensesData = await getExpenseByPeriod(
+      dates.startDate,
+      dates.endDate
+    );
+    setExpenses(expensesData);
+
+    const revenuesData = await getRevenueByPeriod(
+      dates.startDate,
+      dates.endDate
+    );
+    setRevenues(revenuesData);
+
     setDates(dates);
   }
 
@@ -94,7 +100,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchExpenseCategories();
-    fetchExpenseByPeriod({
+    fetchExpenseAndRevenueByPeriod({
       startDate: dates.startDate,
       endDate: dates.endDate,
     });
@@ -110,7 +116,7 @@ export default function Page() {
                 startDate: dates.startDate,
                 endDate: dates.endDate,
               }}
-              callback={fetchExpenseByPeriod}
+              callback={fetchExpenseAndRevenueByPeriod}
             />
           </Box>
         </GridItem>
@@ -181,7 +187,11 @@ export default function Page() {
                 <Heading size="md">Despesas e Receitas</Heading>
               </Flex>
               <Box w="100%" h="325px">
-                <ExpensesChart expenses={expenses} dates={dates} />
+                <ExpensesVsRevenuesChart
+                  expenses={expenses}
+                  revenues={revenues}
+                  dates={dates}
+                />
               </Box>
             </CardBody>
           </Card>
