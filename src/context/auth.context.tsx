@@ -60,6 +60,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       path: "/",
       maxAge: 60 * 60 * 24 * 7, // 7 days,
     });
+
+    financeAPI.defaults.headers.Authorization = `Bearer ${data.token}`;
     router.push("/dashboard");
   }
 
