@@ -33,6 +33,7 @@ import moment from "moment";
 import { LineChart } from "@/components/Charts/LineChart";
 import { ApexOptions } from "apexcharts";
 import lodash from "lodash";
+import { RevenueDTO } from "@/services/revenues/get-by-period";
 
 type Dates = {
   startDate: Date;
@@ -41,10 +42,15 @@ type Dates = {
 
 type ExpensesChartProps = {
   expenses: Array<ExpenseDTO>;
+  revenues: Array<RevenueDTO>;
   dates: Dates;
 };
 
-export default function ExpensesChart({ expenses, dates }: ExpensesChartProps) {
+export default function ExpensesVsRevenuesChart({
+  expenses,
+  revenues,
+  dates,
+}: ExpensesChartProps) {
   const months = getPeriod(dates);
 
   function formatSeries(objetos: ExpenseDTO[]) {
@@ -70,7 +76,7 @@ export default function ExpensesChart({ expenses, dates }: ExpensesChartProps) {
     },
     {
       name: "Receitas",
-      data: Array.from({ length: formatSeries(expenses).length }, () => 6500),
+      data: formatSeries(revenues),
     },
   ];
 
