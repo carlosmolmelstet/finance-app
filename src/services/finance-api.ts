@@ -8,7 +8,6 @@ export function AxiosClient(ctx?: any) {
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_FINANCE_API,
   });
-  console.log("token", token);
 
   if (token) {
     api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
